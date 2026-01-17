@@ -1,10 +1,5 @@
-import fs from 'fs';
+import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
-import path from 'path';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
-
-const pump = promisify(pipeline);
 
 export async function POST(request) {
   try {
@@ -18,19 +13,25 @@ export async function POST(request) {
     const savedFiles = [];
 
     for (const file of files) {
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const filename =  Date.now() + "_" + file.name.replaceAll(" ", "_");
-      const filePath = path.join(process.cwd(), 'public/uploads', filename);
-      
-      await fs.promises.writeFile(filePath, buffer);
-      
-      // Return the URL relative to public
-      savedFiles.push(`/uploads/${filename}`);
+      // Upload to Vercel Blob
+      try {
+        const blob = await put(file.name, file, {
+          access: 'public',
+        });
+        savedFiles.push(blob.url);
+      } catch (uploadError) {
+        console.error("Blob Upload Error for file:", file.name, uploadError);
+        // Continue with other files if one fails, or handle as needed
+      }
+    }
+
+    if (savedFiles.length === 0) {
+       return NextResponse.json({ error: "All uploads failed." }, { status: 500 });
     }
 
     return NextResponse.json({ urls: savedFiles, message: "Success" });
   } catch (error) {
-    console.error("Upload Error:", error);
-    return NextResponse.json({ error: "Failed to upload files." }, { status: 500 });
+    console.error("General Upload Error:", error);
+    return NextResponse.json({ error: "Failed to process uploads." }, { status: 500 });
   }
 }

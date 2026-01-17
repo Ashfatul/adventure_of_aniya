@@ -22,32 +22,20 @@ A beautiful, modern digital diary designed to capture the giggles, milestones, a
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 
-## 🚀 Getting Started
+## 🚀 Deployment & Vercel Blob
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/Ashfatul/adventure_of_aniya.git
-    cd adventure_of_aniya
-    ```
+This project uses **Vercel Blob** for persistent photo storage. To make uploads work on your live site:
 
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server**
-    ```bash
-    npm run dev
-    ```
-
-4.  **Open the diary**
-    Visit [http://localhost:3000](http://localhost:3000) to see the site.
+1.  **Deploy to Vercel**.
+2.  Go to the **Storage** tab in your Vercel Dashboard and create a new **Blob** store.
+3.  Vercel will automatically add the `BLOB_READ_WRITE_TOKEN` to your Environment Variables.
+4.  **Redeploy** (or pull variables locally) and your uploads will be live and permanent!
 
 ## 🔐 Admin Access
 
 To add new memories or milestones:
 
-1.  Go to [http://localhost:3000/admin](http://localhost:3000/admin).
+1.  Go to [your-site-url]/admin.
 2.  Enter the secret code: **`aniya123`**.
 3.  Start documenting!
 
