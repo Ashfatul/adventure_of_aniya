@@ -51,12 +51,30 @@ export function saveMemory(memory) {
   }
 }
 
+export function updateMemory(id, data) {
+  try {
+    const memories = getMemories();
+    const index = memories.findIndex(m => m.id === id);
+    if (index === -1) return null;
+    
+    memories[index] = { ...memories[index], ...data, id }; // Ensure ID doesn't change
+    fs.writeFileSync(memoriesFile, JSON.stringify(memories, null, 2), 'utf8');
+    return memories[index];
+  } catch (error) {
+    console.error('Error updating memory:', error);
+    throw error;
+  }
+}
+
 export function deleteMemory(id) {
   try {
     const memories = getMemories();
+    const memoryToDelete = memories.find(m => m.id === id);
+    if (!memoryToDelete) return null;
+    
     const newMemories = memories.filter(m => m.id !== id);
     fs.writeFileSync(memoriesFile, JSON.stringify(newMemories, null, 2), 'utf8');
-    return true;
+    return memoryToDelete;
   } catch (error) {
     console.error('Error deleting memory:', error);
     throw error;
@@ -90,12 +108,31 @@ export function saveTimelineEvent(event) {
   }
 }
 
+export function updateTimelineEvent(id, data) {
+  try {
+    const timeline = getTimeline();
+    const index = timeline.findIndex(t => t.id === id);
+    if (index === -1) return null;
+    
+    timeline[index] = { ...timeline[index], ...data, id };
+    timeline.sort((a, b) => b.year - a.year);
+    fs.writeFileSync(timelineFile, JSON.stringify(timeline, null, 2), 'utf8');
+    return timeline[index];
+  } catch (error) {
+    console.error('Error updating timeline event:', error);
+    throw error;
+  }
+}
+
 export function deleteTimelineEvent(id) {
    try {
     const timeline = getTimeline();
+    const eventToDelete = timeline.find(t => t.id === id);
+    if (!eventToDelete) return null;
+    
     const newTimeline = timeline.filter(t => t.id !== id);
     fs.writeFileSync(timelineFile, JSON.stringify(newTimeline, null, 2), 'utf8');
-    return true;
+    return eventToDelete;
   } catch (error) {
     console.error('Error deleting timeline event:', error);
     throw error;
