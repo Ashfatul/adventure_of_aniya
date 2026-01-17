@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  
+  --color-pop: rgb(var(--pop)); /* Sunny Yellow */
+  --color-pop-foreground: rgb(var(--pop-foreground));
+
+  --color-accent: rgb(var(--accent)); /* Sky Blue */
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  
+  --color-border: rgb(var(--border));
+  
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+}
+
+:root {
+  --background: 255 253 250; /* Warm off-white */
+  --foreground: 40 40 40;
+  
+  --muted: 245 245 245;
+  --muted-foreground: 120 120 120;
+  
+  --pop: 255 220 100; /* Fun Yellow */
+  --pop-foreground: 100 80 20;
+
+  --accent: 180 220 255; /* Sky Blue */
+  --accent-foreground: 20 60 100;
+  
+  --border: 230 230 230;
+  --radius: 1rem; /* Rounder corners = friendlier */
+  
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* Add support for the Next.js font variables if injected */
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

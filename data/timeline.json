@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "year": "2023",
+    "title": "First Steps",
+    "desc": "Wobbling across the living room!",
+    "icon": "Flag"
+  },
+  {
+    "id": "2",
+    "year": "2022",
+    "title": "First Word",
+    "desc": "\"Dada\" was the magic word.",
+    "icon": "Calendar"
+  },
+  {
+    "id": "3",
+    "year": "2021",
+    "title": "Hello World",
+    "desc": "Welcome to the family, sweet Aniya.",
+    "icon": "Calendar"
+  }
+]
